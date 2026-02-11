@@ -1,8 +1,8 @@
-/* ============================================
-   CVHS Safety Website - Search Component
-   Client-side search across all equipment pages.
-   Builds index from NAV_DATA on page load.
-   ============================================ */
+/* =====================================================================
+   CVHS Engineering Hub – Search Component
+   Client-side full-text search built from NAV_DATA.
+   Ctrl/Cmd + K to open.
+   ===================================================================== */
 
 (function() {
   'use strict';
@@ -10,8 +10,7 @@
   function getBasePath() {
     var path = window.location.pathname;
     var depth = (path.match(/\//g) || []).length - 1;
-    if (depth <= 0) return '.';
-    return '..';
+    return depth <= 0 ? '.' : '..';
   }
 
   var BASE = getBasePath();
@@ -24,22 +23,22 @@
     NAV_DATA.forEach(function(cat) {
       if (cat.slug === 'index') return;
 
-      // Add category itself
       searchIndex.push({
         name: cat.name,
         category: '',
         href: BASE + cat.href,
-        keywords: cat.name.toLowerCase()
+        keywords: cat.name.toLowerCase(),
+        icon: cat.icon
       });
 
-      // Add children
       if (cat.children) {
         cat.children.forEach(function(child) {
           searchIndex.push({
             name: child.name,
             category: cat.name,
             href: BASE + '/' + cat.folder + '/' + child.slug + '.html',
-            keywords: (child.name + ' ' + cat.name).toLowerCase()
+            keywords: (child.name + ' ' + cat.name).toLowerCase(),
+            icon: cat.icon
           });
         });
       }
@@ -56,6 +55,26 @@
     var inputWrapper = document.createElement('div');
     inputWrapper.className = 'search-input-wrapper';
 
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var searchIcon = document.createElementNS(svgNS, 'svg');
+    searchIcon.setAttribute('width', '16');
+    searchIcon.setAttribute('height', '16');
+    searchIcon.setAttribute('viewBox', '0 0 20 20');
+    searchIcon.setAttribute('fill', 'none');
+    searchIcon.setAttribute('stroke', 'currentColor');
+    searchIcon.setAttribute('stroke-width', '2');
+    var circle = document.createElementNS(svgNS, 'circle');
+    circle.setAttribute('cx', '8.5');
+    circle.setAttribute('cy', '8.5');
+    circle.setAttribute('r', '6');
+    var line = document.createElementNS(svgNS, 'line');
+    line.setAttribute('x1', '13');
+    line.setAttribute('y1', '13');
+    line.setAttribute('x2', '18');
+    line.setAttribute('y2', '18');
+    searchIcon.appendChild(circle);
+    searchIcon.appendChild(line);
+
     input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Search equipment, tools, software...';
@@ -67,6 +86,7 @@
     closeBtn.setAttribute('aria-label', 'Close search');
     closeBtn.onclick = closeSearch;
 
+    inputWrapper.appendChild(searchIcon);
     inputWrapper.appendChild(input);
     inputWrapper.appendChild(closeBtn);
 
@@ -78,25 +98,22 @@
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
-    // Close on overlay click (not container)
     overlay.addEventListener('click', function(e) {
       if (e.target === overlay) closeSearch();
     });
 
-    // Close on Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && overlay.classList.contains('open')) {
         closeSearch();
       }
     });
 
-    // Search on input with debounce
     var debounceTimer;
     input.addEventListener('input', function() {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(function() {
         performSearch(input.value.trim());
-      }, 150);
+      }, 120);
     });
   }
 
@@ -112,7 +129,7 @@
     if (!resultsContainer) return;
 
     if (!query || query.length < 2) {
-      resultsContainer.innerHTML = '<div class="search-results-empty">Type at least 2 characters to search...</div>';
+      resultsContainer.innerHTML = '<div class="search-results-empty">Type to search across all equipment...</div>';
       return;
     }
 
@@ -122,11 +139,10 @@
     });
 
     if (matches.length === 0) {
-      resultsContainer.innerHTML = '<div class="search-results-empty">No results found for "' + escapeHtml(query) + '"</div>';
+      resultsContainer.innerHTML = '<div class="search-results-empty">No results for "' + escapeHtml(query) + '"</div>';
       return;
     }
 
-    // Group by category
     var groups = {};
     matches.forEach(function(item) {
       var groupName = item.category || 'Categories';
@@ -166,7 +182,6 @@
     return div.innerHTML;
   }
 
-  // Keyboard shortcut: Ctrl/Cmd + K to open search
   document.addEventListener('keydown', function(e) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
@@ -177,7 +192,6 @@
     }
   });
 
-  // Init
   function init() {
     buildSearchIndex();
     createSearchOverlay();
