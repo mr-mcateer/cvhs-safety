@@ -109,19 +109,28 @@ var SHOP_PHOTOS = [
     var viewport = document.createElement('div');
     viewport.className = 'spotlight-viewport';
 
-    // Two layers for crossfade
+    // Two layers for crossfade (each with blurred bg + img)
     var layerA = document.createElement('div');
     layerA.className = 'spotlight-slide spotlight-active';
+    var bgA = document.createElement('div');
+    bgA.className = 'slide-bg';
     var imgA = document.createElement('img');
 
     var layerB = document.createElement('div');
     layerB.className = 'spotlight-slide';
+    var bgB = document.createElement('div');
+    bgB.className = 'slide-bg';
     var imgB = document.createElement('img');
 
+    layerA.appendChild(bgA);
     layerA.appendChild(imgA);
+    layerB.appendChild(bgB);
     layerB.appendChild(imgB);
     viewport.appendChild(layerA);
     viewport.appendChild(layerB);
+
+    // Cache orientation after images load
+    var orientationCache = {};
 
     // Caption
     var captionEl = document.createElement('div');
@@ -160,9 +169,32 @@ var SHOP_PHOTOS = [
     var activeLayer = 'A';
     var timer;
 
+    function applyOrientation(photo, imgEl, bgEl) {
+      var url = imgUrl(photo.id);
+      bgEl.style.backgroundImage = 'url(' + url + ')';
+
+      if (orientationCache[photo.id] !== undefined) {
+        viewport.classList.toggle('portrait', orientationCache[photo.id]);
+        return;
+      }
+      // Detect after load
+      var probe = new Image();
+      probe.onload = function() {
+        var isPortrait = probe.naturalHeight > probe.naturalWidth;
+        orientationCache[photo.id] = isPortrait;
+        // Only update if this photo is still the active one
+        if (photos[current] && photos[current].id === photo.id) {
+          viewport.classList.toggle('portrait', isPortrait);
+        }
+      };
+      probe.src = url;
+    }
+
     function showSlide(photo, imgEl, layerEl, capEl) {
+      var bgEl = layerEl.querySelector('.slide-bg');
       imgEl.src = imgUrl(photo.id);
       imgEl.alt = photo.alt;
+      applyOrientation(photo, imgEl, bgEl);
       if (capEl && photo.caption) {
         capEl.textContent = photo.caption;
         capEl.style.opacity = '1';
@@ -191,8 +223,10 @@ var SHOP_PHOTOS = [
       }
 
       // Set new image on hidden layer
+      var toBg = toLayer.querySelector('.slide-bg');
       toImg.src = imgUrl(photo.id);
       toImg.alt = photo.alt;
+      applyOrientation(photo, toImg, toBg);
 
       // Crossfade
       toLayer.classList.add('spotlight-active');

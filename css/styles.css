@@ -601,10 +601,16 @@ body.home .page-header h1 {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 50%;         /* ~2:1 aspect ratio */
+  padding-bottom: 50%;         /* ~2:1 for landscape */
   border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--surface-2);
+  transition: padding-bottom .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* Portrait images – taller viewport, contain instead of crop */
+.spotlight-viewport.portrait {
+  padding-bottom: 72%;
 }
 
 .spotlight-slide {
@@ -617,12 +623,35 @@ body.home .page-header h1 {
   opacity: 1;
 }
 
+/* Blurred background layer for portrait images */
+.spotlight-slide .slide-bg {
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(25px) brightness(.7);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 0;
+}
+.spotlight-viewport.portrait .spotlight-slide .slide-bg {
+  opacity: 1;
+}
+
 .spotlight-slide img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: object-fit 0s .3s;     /* delay switch until mid-transition */
   /* Ken Burns – slow zoom */
   animation: kenburns 14s ease-in-out infinite alternate;
+}
+
+/* Portrait mode: contain the image, don't crop it */
+.spotlight-viewport.portrait .spotlight-slide img {
+  object-fit: contain;
 }
 
 @keyframes kenburns {
@@ -676,6 +705,9 @@ body.home .page-header h1 {
     padding-bottom: 60%;       /* taller on mobile */
     border-radius: var(--r);
   }
+  .spotlight-viewport.portrait {
+    padding-bottom: 85%;
+  }
   .shop-spotlight {
     margin-top: 32px;
   }
@@ -684,6 +716,9 @@ body.home .page-header h1 {
 @media (max-width: 480px) {
   .spotlight-viewport {
     padding-bottom: 70%;
+  }
+  .spotlight-viewport.portrait {
+    padding-bottom: 100%;
   }
 }
 
