@@ -1,12 +1,12 @@
 /* ============================================
-   CVHS Safety Website - Navigation Data
+   CVHS Safety Website – Navigation Data
    Single source of truth for all navigation.
    Edit this file to add/remove/rename pages.
    ============================================ */
 
 const NAV_DATA = [
   {
-    name: "CVHS Main Safety Page",
+    name: "Home",
     slug: "index",
     folder: "",
     href: "/index.html",
@@ -14,7 +14,7 @@ const NAV_DATA = [
     children: []
   },
   {
-    name: "Wood -- Power Tools",
+    name: "Power Tools",
     slug: "wood-power-tools",
     folder: "wood-power-tools",
     href: "/wood-power-tools/index.html",
@@ -47,7 +47,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Wood -- Hand Tools",
+    name: "Hand Tools",
     slug: "wood-hand-tools",
     folder: "wood-hand-tools",
     href: "/wood-hand-tools/index.html",
@@ -68,7 +68,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "CNC / Computer Driven Equipment",
+    name: "CNC & Digital",
     slug: "cnc",
     folder: "cnc",
     href: "/cnc/index.html",
@@ -91,7 +91,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Software Programs",
+    name: "Software",
     slug: "software",
     folder: "software",
     href: "/software/index.html",
@@ -106,7 +106,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Pneumatic Tools",
+    name: "Pneumatics",
     slug: "pneumatic",
     folder: "pneumatic",
     href: "/pneumatic/index.html",
@@ -124,7 +124,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Maintenance & Other Tools",
+    name: "Maintenance",
     slug: "maintenance",
     folder: "maintenance",
     href: "/maintenance/index.html",
@@ -134,7 +134,7 @@ const NAV_DATA = [
       { name: "Cordless Grease Gun", slug: "cordless-grease-gun" },
       { name: "Digital Clamp Multimeter", slug: "digital-clamp-multimeter" },
       { name: "Dremel", slug: "dremel" },
-      { name: "Drum Dumper -- Forklift Attachment", slug: "drum-dumper" },
+      { name: "Drum Dumper — Forklift Attachment", slug: "drum-dumper" },
       { name: "Dust Collector & Related Items", slug: "dust-collector" },
       { name: "Fiber Cement Shears (Power)", slug: "fiber-cement-shears" },
       { name: "Hammer Drill", slug: "hammer-drill" },
@@ -150,7 +150,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Autos Equipment",
+    name: "Automotive",
     slug: "autos",
     folder: "autos",
     href: "/autos/index.html",
@@ -162,7 +162,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Metals / Machine Tool",
+    name: "Metals",
     slug: "metals",
     folder: "metals",
     href: "/metals/index.html",
@@ -182,7 +182,7 @@ const NAV_DATA = [
     ]
   },
   {
-    name: "Welding / Cutting",
+    name: "Welding",
     slug: "welding",
     folder: "welding",
     href: "/welding/index.html",
@@ -196,7 +196,6 @@ const NAV_DATA = [
   }
 ];
 
-// Make available globally
 if (typeof window !== 'undefined') {
   window.NAV_DATA = NAV_DATA;
 }

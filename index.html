@@ -3,118 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CVHS Safety Website - Crescent Valley High School Engineering</title>
+  <title>CVHS Safety – Crescent Valley High School Engineering</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="home">
 
   <!-- NAV -->
   <div id="nav-container"></div>
 
-  <!-- HERO BANNER -->
-  <header class="hero">
-    <h1>CVHS Safety Website</h1>
-    <p>Safety, operational, and maintenance information for all equipment used within Crescent Valley High School's Engineering Program.</p>
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <h1>CVHS Safety</h1>
+    <p class="subtitle">Equipment safety, manuals, and maintenance for the Engineering Program.</p>
+
+    <!-- ALWAYS-VISIBLE SEARCH -->
+    <div class="home-search" id="home-search">
+      <span class="search-icon">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
+      </span>
+      <input type="text" placeholder="Search equipment, tools, software…" aria-label="Search">
+      <div class="home-search-results" id="home-search-results"></div>
+    </div>
   </header>
 
-  <main class="content">
+  <!-- CATEGORY ICON ROW -->
+  <nav class="category-icon-row" aria-label="Equipment categories">
+    <a class="category-icon-item" href="wood-power-tools/index.html">
+      <span class="icon">🪚</span>
+      <span class="label">Power Tools</span>
+    </a>
+    <a class="category-icon-item" href="wood-hand-tools/index.html">
+      <span class="icon">🔨</span>
+      <span class="label">Hand Tools</span>
+    </a>
+    <a class="category-icon-item" href="cnc/index.html">
+      <span class="icon">🖥️</span>
+      <span class="label">CNC & Digital</span>
+    </a>
+    <a class="category-icon-item" href="software/index.html">
+      <span class="icon">💻</span>
+      <span class="label">Software</span>
+    </a>
+    <a class="category-icon-item" href="pneumatic/index.html">
+      <span class="icon">💨</span>
+      <span class="label">Pneumatics</span>
+    </a>
+    <a class="category-icon-item" href="maintenance/index.html">
+      <span class="icon">🔧</span>
+      <span class="label">Maintenance</span>
+    </a>
+    <a class="category-icon-item" href="autos/index.html">
+      <span class="icon">🚗</span>
+      <span class="label">Automotive</span>
+    </a>
+    <a class="category-icon-item" href="metals/index.html">
+      <span class="icon">⚙️</span>
+      <span class="label">Metals</span>
+    </a>
+    <a class="category-icon-item" href="welding/index.html">
+      <span class="icon">🔥</span>
+      <span class="label">Welding</span>
+    </a>
+  </nav>
 
-    <!-- INTRO -->
-    <section class="info-section">
-      <p>This site contains safety, operational, and maintenance information for all of the equipment used within Crescent Valley High School's Engineering Program. Use the navigation above to go to the piece of equipment you wish to obtain more information about.</p>
-
-      <p>The document linked below lists the general safety rules for the shop, classrooms, and other working spaces used by the Engineering Program. This information is covered on the general safety test.</p>
-    </section>
-
-    <!-- GENERAL SAFETY DOCUMENT -->
-    <section class="resources-section">
-      <h2>General Safety Guidelines</h2>
-      <ul class="resource-list">
-        <li><a href="https://drive.google.com/file/d/0BwwtL3lExl5wLWxUYld3U1BnUU0/view?usp=sharing" target="_blank" rel="noopener">General CVHS Shop & Lab Safety Guidelines</a></li>
-      </ul>
-    </section>
-
-    <!-- CATEGORY CARDS -->
-    <section>
-      <h2>Equipment Categories</h2>
-      <div class="category-cards">
-
-        <a class="category-card" href="wood-power-tools/index.html">
-          <div class="card-icon">🪚</div>
-          <h3>Wood -- Power Tools</h3>
-          <p>Table saws, band saws, routers, planers, jointers, and more power tools for woodworking.</p>
-          <span class="card-count">24 items</span>
-        </a>
-
-        <a class="category-card" href="wood-hand-tools/index.html">
-          <div class="card-icon">🔨</div>
-          <h3>Wood -- Hand Tools</h3>
-          <p>Hand planes, saws, spokeshaves, marking gauges, and precision hand tools.</p>
-          <span class="card-count">12 items</span>
-        </a>
-
-        <a class="category-card" href="cnc/index.html">
-          <div class="card-icon">🖥️</div>
-          <h3>CNC / Computer Driven Equipment</h3>
-          <p>3D printers, CNC routers, laser engravers, plasma tables, and more.</p>
-          <span class="card-count">14 items</span>
-        </a>
-
-        <a class="category-card" href="software/index.html">
-          <div class="card-icon">💻</div>
-          <h3>Software Programs</h3>
-          <p>Solidworks, Illustrator, Mastercam, V-Carve Pro, and other design software.</p>
-          <span class="card-count">6 items</span>
-        </a>
-
-        <a class="category-card" href="pneumatic/index.html">
-          <div class="card-icon">💨</div>
-          <h3>Pneumatic Tools</h3>
-          <p>Brad nailers, framing nailers, finish nailers, air riveters, and compressors.</p>
-          <span class="card-count">9 items</span>
-        </a>
-
-        <a class="category-card" href="maintenance/index.html">
-          <div class="card-icon">🔧</div>
-          <h3>Maintenance & Other Tools</h3>
-          <p>Drills, multimeters, laser levels, cameras, and general maintenance equipment.</p>
-          <span class="card-count">17 items</span>
-        </a>
-
-        <a class="category-card" href="autos/index.html">
-          <div class="card-icon">🚗</div>
-          <h3>Autos Equipment</h3>
-          <p>Brake lathe, tire changer, and wheel balancer for automotive work.</p>
-          <span class="card-count">3 items</span>
-        </a>
-
-        <a class="category-card" href="metals/index.html">
-          <div class="card-icon">⚙️</div>
-          <h3>Metals / Machine Tool</h3>
-          <p>Metal lathes, grinders, drill presses, ironworker, and metalworking equipment.</p>
-          <span class="card-count">11 items</span>
-        </a>
-
-        <a class="category-card" href="welding/index.html">
-          <div class="card-icon">🔥</div>
-          <h3>Welding / Cutting</h3>
-          <p>MIG, TIG, stick welders, and plasma cutters for metal joining and cutting.</p>
-          <span class="card-count">4 items</span>
-        </a>
-
-      </div>
-    </section>
-
-  </main>
+  <!-- GETTING STARTED -->
+  <section class="getting-started">
+    <h2>Getting Started</h2>
+    <p>Review the general safety rules for all shops, classrooms, and working spaces before using any equipment.</p>
+    <a class="btn" href="https://drive.google.com/file/d/0BwwtL3lExl5wLWxUYld3U1BnUU0/view?usp=sharing" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/></svg>
+      General Safety Guidelines
+    </a>
+  </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <p>Crescent Valley High School - Engineering / CTE Program</p>
+    <p>Crescent Valley High School · Engineering / CTE Program</p>
     <p>Safety information maintained by CVHS Engineering faculty.</p>
   </footer>
 
   <script src="js/nav-data.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/search.js"></script>
+
+  <!-- HOME SEARCH INLINE (connects to existing search index) -->
+  <script>
+  (function() {
+    var input = document.querySelector('#home-search input');
+    var results = document.getElementById('home-search-results');
+    if (!input || !results) return;
+
+    var timer;
+    input.addEventListener('input', function() {
+      clearTimeout(timer);
+      timer = setTimeout(function() { search(input.value.trim()); }, 120);
+    });
+
+    input.addEventListener('focus', function() {
+      if (input.value.trim().length >= 2) search(input.value.trim());
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#home-search')) {
+        results.classList.remove('visible');
+      }
+    });
+
+    function search(q) {
+      if (!q || q.length < 2) { results.classList.remove('visible'); results.innerHTML=''; return; }
+
+      var items = [];
+      if (window.NAV_DATA) {
+        NAV_DATA.forEach(function(cat) {
+          if (cat.slug === 'index') return;
+          if (cat.name.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
+            items.push({ name:cat.name, cat:'', href:cat.href.replace(/^\//, '') });
+          }
+          if (cat.children) cat.children.forEach(function(c) {
+            if ((c.name + ' ' + cat.name).toLowerCase().indexOf(q.toLowerCase()) !== -1) {
+              items.push({ name:c.name, cat:cat.name, href:cat.folder+'/'+c.slug+'.html' });
+            }
+          });
+        });
+      }
+
+      if (!items.length) {
+        results.innerHTML = '<div style="padding:20px;text-align:center;color:var(--color-text-secondary);font-size:.9rem;">No results for "'+q+'"</div>';
+        results.classList.add('visible');
+        return;
+      }
+
+      var html = '';
+      items.slice(0,12).forEach(function(it) {
+        html += '<a class="search-result-item" href="'+it.href+'">';
+        html += '<span class="result-name">'+it.name+'</span>';
+        if (it.cat) html += '<span class="result-category">'+it.cat+'</span>';
+        html += '</a>';
+      });
+      results.innerHTML = html;
+      results.classList.add('visible');
+    }
+  })();
+  </script>
 </body>
 </html>
