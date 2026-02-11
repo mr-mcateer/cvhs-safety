@@ -1,7 +1,8 @@
-/* ============================================
-   CVHS Safety Website – Navigation Component
-   Minimal Apple-style: logo + search + hamburger
-   ============================================ */
+/* =====================================================================
+   CVHS Engineering Hub – Navigation Component
+   Minimal bar: brand + search icon + hamburger.
+   Mobile nav = full category accordion.
+   ===================================================================== */
 
 (function() {
   'use strict';
@@ -30,23 +31,23 @@
     var brand = document.createElement('a');
     brand.className = 'nav-brand';
     brand.href = BASE + '/index.html';
-    brand.textContent = 'CVHS Safety';
+    brand.textContent = 'CVHS Engineering Hub';
 
-    // Right-side group
+    // Right-side cluster
     var right = document.createElement('div');
     right.className = 'nav-right';
 
     // Search button
     var searchBtn = document.createElement('button');
     searchBtn.className = 'nav-search-btn';
-    searchBtn.setAttribute('aria-label', 'Search (⌘K)');
-    searchBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="18" y2="18"/></svg>';
+    searchBtn.setAttribute('aria-label', 'Search');
+    searchBtn.innerHTML = '<svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="18" y2="18"/></svg>';
     searchBtn.onclick = function() {
       var overlay = document.querySelector('.search-overlay');
       if (overlay) {
         overlay.classList.add('open');
-        var input = overlay.querySelector('input');
-        if (input) input.focus();
+        var inp = overlay.querySelector('input');
+        if (inp) inp.focus();
       }
     };
 
@@ -58,8 +59,9 @@
     hamburger.onclick = function() {
       var mobileNav = document.querySelector('.mobile-nav');
       if (mobileNav) {
-        mobileNav.classList.toggle('open');
-        hamburger.innerHTML = mobileNav.classList.contains('open') ? '&#10005;' : '&#9776;';
+        var isOpen = mobileNav.classList.toggle('open');
+        hamburger.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
       }
     };
 
@@ -78,11 +80,7 @@
         var homeLink = document.createElement('a');
         homeLink.href = BASE + '/index.html';
         homeLink.textContent = 'Home';
-        homeLink.style.display = 'block';
-        homeLink.style.padding = '14px 4px';
-        homeLink.style.fontWeight = '600';
-        homeLink.style.borderBottom = '1px solid var(--color-border)';
-        homeLink.style.color = 'var(--color-text)';
+        homeLink.style.cssText = 'display:block;padding:14px 4px;font-weight:600;border-bottom:1px solid var(--border-light);color:var(--ink)';
         mobileNav.appendChild(homeLink);
         return;
       }
@@ -94,7 +92,7 @@
       }
 
       var catBtn = document.createElement('button');
-      catBtn.innerHTML = cat.name + ' <span class="expand-icon">&#9662;</span>';
+      catBtn.innerHTML = cat.icon + ' ' + cat.name + ' <span class="expand-icon">&#9662;</span>';
       catBtn.onclick = function() { catDiv.classList.toggle('expanded'); };
       catDiv.appendChild(catBtn);
 
@@ -102,6 +100,7 @@
         var subUl = document.createElement('ul');
         subUl.className = 'mobile-nav-sublinks';
 
+        // Overview link
         var overviewLi = document.createElement('li');
         var overviewA = document.createElement('a');
         overviewA.href = BASE + '/' + cat.folder + '/index.html';

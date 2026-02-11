@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CVHS Safety – Crescent Valley High School Engineering</title>
+  <title>CVHS Engineering Hub – Crescent Valley High School</title>
+  <meta name="description" content="Equipment inventory, safety resources, training materials, and maintenance records for the CVHS Engineering and CTE Program.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="home">
@@ -13,20 +14,20 @@
 
   <!-- PAGE HEADER -->
   <header class="page-header">
-    <h1>CVHS Safety</h1>
-    <p class="subtitle">Equipment safety, manuals, and maintenance for the Engineering Program.</p>
+    <h1>Engineering Hub</h1>
+    <p class="subtitle">Equipment, training, and maintenance for the CVHS CTE Program.</p>
 
-    <!-- ALWAYS-VISIBLE SEARCH -->
+    <!-- SEARCH BAR -->
     <div class="home-search" id="home-search">
       <span class="search-icon">
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
       </span>
-      <input type="text" placeholder="Search equipment, tools, software…" aria-label="Search">
+      <input type="text" placeholder="Search equipment, tools, software..." aria-label="Search">
       <div class="home-search-results" id="home-search-results"></div>
     </div>
   </header>
 
-  <!-- CATEGORY ICON ROW -->
+  <!-- CATEGORY ICON GRID -->
   <nav class="category-icon-row" aria-label="Equipment categories">
     <a class="category-icon-item" href="wood-power-tools/index.html">
       <span class="icon">🪚</span>
@@ -66,10 +67,13 @@
     </a>
   </nav>
 
+  <!-- STATS -->
+  <div class="hub-stats" id="hub-stats"></div>
+
   <!-- GETTING STARTED -->
   <section class="getting-started">
     <h2>Getting Started</h2>
-    <p>Review the general safety rules for all shops, classrooms, and working spaces before using any equipment.</p>
+    <p>Review the general safety guidelines before using any shop equipment.</p>
     <a class="btn" href="https://drive.google.com/file/d/0BwwtL3lExl5wLWxUYld3U1BnUU0/view?usp=sharing" target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2z"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/></svg>
       General Safety Guidelines
@@ -79,16 +83,35 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <p>Crescent Valley High School · Engineering / CTE Program</p>
-    <p>Safety information maintained by CVHS Engineering faculty.</p>
+    <p>Maintained by CVHS Engineering faculty.</p>
   </footer>
 
   <script src="js/nav-data.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/search.js"></script>
 
-  <!-- HOME SEARCH INLINE (connects to existing search index) -->
+  <!-- Hub stats + home search -->
   <script>
   (function() {
+    /* Compute stats from NAV_DATA */
+    if (window.NAV_DATA) {
+      var categories = 0, equipment = 0;
+      NAV_DATA.forEach(function(cat) {
+        if (cat.slug === 'index') return;
+        categories++;
+        equipment += (cat.children ? cat.children.length : 0);
+      });
+
+      var statsEl = document.getElementById('hub-stats');
+      if (statsEl) {
+        statsEl.innerHTML =
+          '<div class="hub-stat"><div class="stat-num">' + categories + '</div><div class="stat-label">Categories</div></div>' +
+          '<div class="hub-stat"><div class="stat-num">' + equipment + '</div><div class="stat-label">Equipment Pages</div></div>' +
+          '<div class="hub-stat"><div class="stat-num">196</div><div class="stat-label">Inventory Items</div></div>';
+      }
+    }
+
+    /* Home search */
     var input = document.querySelector('#home-search input');
     var results = document.getElementById('home-search-results');
     if (!input || !results) return;
@@ -104,40 +127,38 @@
     });
 
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('#home-search')) {
-        results.classList.remove('visible');
-      }
+      if (!e.target.closest('#home-search')) results.classList.remove('visible');
     });
 
     function search(q) {
-      if (!q || q.length < 2) { results.classList.remove('visible'); results.innerHTML=''; return; }
+      if (!q || q.length < 2) { results.classList.remove('visible'); results.innerHTML = ''; return; }
 
       var items = [];
       if (window.NAV_DATA) {
         NAV_DATA.forEach(function(cat) {
           if (cat.slug === 'index') return;
           if (cat.name.toLowerCase().indexOf(q.toLowerCase()) !== -1) {
-            items.push({ name:cat.name, cat:'', href:cat.href.replace(/^\//, '') });
+            items.push({ name: cat.name, cat: '', href: cat.href.replace(/^\//, '') });
           }
           if (cat.children) cat.children.forEach(function(c) {
             if ((c.name + ' ' + cat.name).toLowerCase().indexOf(q.toLowerCase()) !== -1) {
-              items.push({ name:c.name, cat:cat.name, href:cat.folder+'/'+c.slug+'.html' });
+              items.push({ name: c.name, cat: cat.name, href: cat.folder + '/' + c.slug + '.html' });
             }
           });
         });
       }
 
       if (!items.length) {
-        results.innerHTML = '<div style="padding:20px;text-align:center;color:var(--color-text-secondary);font-size:.9rem;">No results for "'+q+'"</div>';
+        results.innerHTML = '<div style="padding:20px;text-align:center;color:var(--ink-4);font-size:.88rem;">No results for "' + q + '"</div>';
         results.classList.add('visible');
         return;
       }
 
       var html = '';
-      items.slice(0,12).forEach(function(it) {
-        html += '<a class="search-result-item" href="'+it.href+'">';
-        html += '<span class="result-name">'+it.name+'</span>';
-        if (it.cat) html += '<span class="result-category">'+it.cat+'</span>';
+      items.slice(0, 12).forEach(function(it) {
+        html += '<a class="search-result-item" href="' + it.href + '">';
+        html += '<span class="result-name">' + it.name + '</span>';
+        if (it.cat) html += '<span class="result-category">' + it.cat + '</span>';
         html += '</a>';
       });
       results.innerHTML = html;

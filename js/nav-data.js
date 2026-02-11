@@ -1,8 +1,8 @@
-/* ============================================
-   CVHS Safety Website – Navigation Data
-   Single source of truth for all navigation.
-   Edit this file to add/remove/rename pages.
-   ============================================ */
+/* =====================================================================
+   CVHS Engineering Hub – Navigation Data
+   Single source of truth for all site navigation.
+   Edit this file to add / remove / rename pages.
+   ===================================================================== */
 
 const NAV_DATA = [
   {
